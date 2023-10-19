@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "mKb2KIyKAQaC3ZTdOvsz7cm/pU4f7sFhxr3wZeyhq9mULGCjZTgGi9X5OG1o2mZo/fjLpqS4kiRfHkgU+TR9Tg==",
+  "success": true,
+  "projectFilePath": "D:\\dev_work\\CryptoSimulator\\webapi\\webapi.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\burak\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.12\\microsoft.aspnetcore.openapi.7.0.12.nupkg.sha512",
+    "C:\\Users\\burak\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "C:\\Users\\burak\\.nuget\\packages\\microsoft.openapi\\1.4.3\\microsoft.openapi.1.4.3.nupkg.sha512",
+    "C:\\Users\\burak\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
+    "C:\\Users\\burak\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
+    "C:\\Users\\burak\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
+    "C:\\Users\\burak\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.5.0\\swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
