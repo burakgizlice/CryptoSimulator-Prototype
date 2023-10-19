@@ -1,1 +1,2 @@
 D:\dev_work\CryptoSimulator\reactapp\obj\Debug\reactapp.esproj.CoreCompileInputs.cache
+D:\KJ_Projects\reactapp\obj\Debug\reactapp.esproj.CoreCompileInputs.cache

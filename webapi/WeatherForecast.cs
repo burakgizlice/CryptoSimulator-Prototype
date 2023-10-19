@@ -1,6 +1,6 @@
 namespace webapi;
 
-public class User
+public class WeatherForecast
 {
     public DateOnly Date { get; set; }
 
