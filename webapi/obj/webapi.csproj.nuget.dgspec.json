@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\dev_work\\KJ_Project\\webapi\\webapi.csproj": {}
+    "D:\\dev_work\\CryptoSimulator\\webapi\\webapi.csproj": {}
   },
   "projects": {
-    "D:\\dev_work\\KJ_Project\\webapi\\webapi.csproj": {
+    "D:\\dev_work\\CryptoSimulator\\webapi\\webapi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\dev_work\\KJ_Project\\webapi\\webapi.csproj",
+        "projectUniqueName": "D:\\dev_work\\CryptoSimulator\\webapi\\webapi.csproj",
         "projectName": "webapi",
-        "projectPath": "D:\\dev_work\\KJ_Project\\webapi\\webapi.csproj",
+        "projectPath": "D:\\dev_work\\CryptoSimulator\\webapi\\webapi.csproj",
         "packagesPath": "C:\\Users\\burak\\.nuget\\packages\\",
-        "outputPath": "D:\\dev_work\\KJ_Project\\webapi\\obj\\",
+        "outputPath": "D:\\dev_work\\CryptoSimulator\\webapi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\burak\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fST6BQaSBlW4MwexPYxj4NKx7RXFpL+/EUYqkBOx0+vt5URIwCxAKSfnyWtIjIAfUnvDjDwvlqPmXJIFhZAvlQ==",
+  "dgSpecHash": "CTiSGBm6BUDw7eAIQM6ApVLpqP9yWRNaAIlPdQah42Kq/41M2HY+V+BfOwvi/X3BfB0ALE5qF36efi7xLWBK7Q==",
   "success": true,
-  "projectFilePath": "D:\\dev_work\\KJ_Project\\webapi\\webapi.csproj",
+  "projectFilePath": "D:\\dev_work\\CryptoSimulator\\webapi\\webapi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\burak\\.nuget\\packages\\microsoft.aspnetcore.cors\\2.2.0\\microsoft.aspnetcore.cors.2.2.0.nupkg.sha512",
     "C:\\Users\\burak\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
