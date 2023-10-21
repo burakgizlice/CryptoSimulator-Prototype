@@ -2,3 +2,4 @@
 node_modules
 webapi/bin/
 webapi/obj/
+reactapp/.env
