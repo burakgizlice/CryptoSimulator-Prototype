@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import MainPage from "./pages/MainPage/Index.jsx";
+import CurrentAssets from "./pages/MyAccount/CurrentAssets";
+import ProfitLoss from "./pages/MyAccount/ProfitLoss";
+import TransactionHistory from "./pages/MyAccount/TransactionHistory";
+import { Route, Routes } from "react-router-dom";
 
 const App = () => {
 	const [coins, setCoins] = useState([{}, {}]);
@@ -18,9 +22,24 @@ const App = () => {
 		makeRequest();
 	}, []);
 	return (
-		<div>
-			<MainPage coins={coins} />
-		</div>
+		<Routes>
+			<Route
+				path="/"
+				element={<MainPage coins={coins} />}
+			/>
+			<Route
+				path="/myAccount/assets"
+				element={<CurrentAssets />}
+			/>
+			<Route
+				path="/myAccount/transactionHistory"
+				element={<TransactionHistory />}
+			/>
+			<Route
+				path="/myAccount/profitAndLoss"
+				element={<ProfitLoss />}
+			/>
+		</Routes>
 	);
 };
 
