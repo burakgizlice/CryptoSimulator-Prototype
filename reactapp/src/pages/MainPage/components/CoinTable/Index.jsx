@@ -27,7 +27,7 @@ const Index = ({ coins = [] }) => {
 							onError={(e) => {
 								e.target.src = "/vite.svg";
 							}}
-							src={`/coins/${coin?.symbol}.svg`}
+							src={coin?.image}
 						/>
 						<h3 className="name">{coin?.name}</h3>
 						<p className="text">{coin?.symbol?.toUpperCase()}</p>
