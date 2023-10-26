@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace webapi.Migrations
 {
     /// <inheritdoc />
-    public partial class PushModelsToDataBase : Migration
+    public partial class pushModelsToDataBase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -55,7 +55,7 @@ namespace webapi.Migrations
                     CoinCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Amount = table.Column<double>(type: "float", nullable: false),
                     CurrentPrice = table.Column<double>(type: "float", nullable: false),
-                    PurchaseDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserAssetCoinCode = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     UserAssetUserId = table.Column<int>(type: "int", nullable: true)
                 },

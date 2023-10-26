@@ -16,7 +16,7 @@ namespace webapi.Models
         
         public double Amount { get; set; }
         public double CurrentPrice { get; set; }
-        public DateTime PurchaseDateTime { get; set; }
+        public DateTime DateTime { get; set; }
                
     }
 }

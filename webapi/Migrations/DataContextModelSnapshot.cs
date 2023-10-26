@@ -39,7 +39,7 @@ namespace webapi.Migrations
                     b.Property<double>("CurrentPrice")
                         .HasColumnType("float");
 
-                    b.Property<DateTime>("PurchaseDateTime")
+                    b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserAssetCoinCode")
@@ -83,8 +83,7 @@ namespace webapi.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CoinCode")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnOrder(1);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<double>("Amount")
                         .HasColumnType("float");

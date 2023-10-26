@@ -9,7 +9,6 @@ namespace webapi.Models
         [Key, Column(Order = 0)]
         public int UserAssetId { get; set; }
 
-        [Key, Column(Order = 1)]
         public string? CoinCode { get; set; }
     
         public double Amount { get; set; }

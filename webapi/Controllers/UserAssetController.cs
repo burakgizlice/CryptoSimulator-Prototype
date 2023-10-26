@@ -72,7 +72,7 @@ namespace webapi.Controllers
                         CoinCode = request.CoinCode,
                         Amount = request.Amount,
                         CurrentPrice = request.CurrentPrice,
-                        PurchaseDateTime = request.PurchaseDateTime,
+                        DateTime = request.DateTime,
                     };
 
                     _db.coinPurchaseRequests.Add(purchase);
@@ -109,7 +109,55 @@ namespace webapi.Controllers
             return Ok(user.Balance);
         }
 
-        
+        [HttpPost]
+
+        [Route("SellCoin")]
+        public async Task<ActionResult<string>> SellCoin([FromBody] CoinPurchaseRequest request)
+        {
+            try
+            {
+                var userAsset = await _db.userAssets.FirstOrDefaultAsync(u => u.UserId == request.UserId && u.CoinCode == request.CoinCode);
+
+                if (userAsset == null || userAsset.Amount < request.Amount)
+                {
+                    return BadRequest("Insufficient coin balance!!");
+                }
+
+                //add the sold coins' value to user balance
+                var soldAmount = request.Amount * request.CurrentPrice;
+                var user = await _db.Users.FirstOrDefaultAsync(u => u.UserId == request.UserId);
+                user.Balance += soldAmount;
+
+                //record the sell request in hte coinpurchace table for transcation history
+
+                var sellRequestEntry = new CoinPurchaseRequest
+                {
+                    UserId = request.UserId,
+                    CoinCode = request.CoinCode,
+                    Amount = request.Amount,
+                    CurrentPrice = request.CurrentPrice,
+                    DateTime = request.DateTime,
+                };
+                _db.coinPurchaseRequests.Add(sellRequestEntry);
+
+                //update userAsset table
+                userAsset.Amount -= request.Amount;
+
+                _db.SaveChanges();
+
+                return Ok($"Sell successful!.  Current balance: ${user.Balance}");
+
+            }
+
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+
+        }
+
+
     }
 
 
