@@ -6,7 +6,6 @@ namespace webapi.Models
 {
     public class UserAsset
     {
-        [Key, Column(Order = 0)]
         public int UserAssetId { get; set; }
 
         public string? CoinCode { get; set; }
@@ -15,12 +14,9 @@ namespace webapi.Models
         
         public int UserId { get; set; }
         [ForeignKey("UserId")]
-        public required virtual User User { get; set; } // Navigation property to the User table
-        public virtual ICollection<CoinPurchaseRequest> CoinPurchaseRequests { get; set; } = new List<CoinPurchaseRequest>();
-        public UserAsset()
-        {
-            User = new User();
-        }
+        public required virtual User User { get; set; } // Navigation property to the User table        
+        public string? CoinImageURL { get; set; }
+        
     }
    
 }

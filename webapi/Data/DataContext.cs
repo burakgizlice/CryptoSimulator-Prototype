@@ -10,10 +10,8 @@ namespace webapi.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
         public DbSet<User> Users { get; set; }
         public DbSet<UserAsset> userAssets { get; set; }
-        public DbSet<CoinPurchaseRequest> coinPurchaseRequests { get; set; }
-
-        
-
+        public DbSet<SellTranscation> sellTranscations { get; set; }      
+        public DbSet<BuyTranscation> buyTranscations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -22,13 +22,13 @@ namespace webapi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("webapi.Models.CoinPurchaseRequest", b =>
+            modelBuilder.Entity("webapi.Models.BuyTranscation", b =>
                 {
-                    b.Property<int>("CoinPurchaseRequestId")
+                    b.Property<int>("TranscationId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CoinPurchaseRequestId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TranscationId"));
 
                     b.Property<double>("Amount")
                         .HasColumnType("float");
@@ -36,26 +36,52 @@ namespace webapi.Migrations
                     b.Property<string>("CoinCode")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("CurrentPrice")
+                    b.Property<string>("CoinImageURL")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("PricePerCoin")
                         .HasColumnType("float");
 
-                    b.Property<DateTime>("DateTime")
+                    b.Property<DateTime>("TrascationTime")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("UserAssetCoinCode")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int?>("UserAssetUserId")
-                        .HasColumnType("int");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("CoinPurchaseRequestId");
+                    b.HasKey("TranscationId");
 
-                    b.HasIndex("UserAssetUserId", "UserAssetCoinCode");
+                    b.ToTable("buyTranscations");
+                });
 
-                    b.ToTable("coinPurchaseRequests");
+            modelBuilder.Entity("webapi.Models.SellTranscation", b =>
+                {
+                    b.Property<int>("TranscationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TranscationId"));
+
+                    b.Property<double>("Amount")
+                        .HasColumnType("float");
+
+                    b.Property<string>("CoinCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CoinImageURl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("PricePerCoin")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("TranscationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("TranscationId");
+
+                    b.ToTable("sellTranscations");
                 });
 
             modelBuilder.Entity("webapi.Models.User", b =>
@@ -88,20 +114,15 @@ namespace webapi.Migrations
                     b.Property<double>("Amount")
                         .HasColumnType("float");
 
+                    b.Property<string>("CoinImageURL")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("UserAssetId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(0);
+                        .HasColumnType("int");
 
                     b.HasKey("UserId", "CoinCode");
 
                     b.ToTable("userAssets");
-                });
-
-            modelBuilder.Entity("webapi.Models.CoinPurchaseRequest", b =>
-                {
-                    b.HasOne("webapi.Models.UserAsset", null)
-                        .WithMany("CoinPurchaseRequests")
-                        .HasForeignKey("UserAssetUserId", "UserAssetCoinCode");
                 });
 
             modelBuilder.Entity("webapi.Models.UserAsset", b =>
@@ -118,11 +139,6 @@ namespace webapi.Migrations
             modelBuilder.Entity("webapi.Models.User", b =>
                 {
                     b.Navigation("UserAssets");
-                });
-
-            modelBuilder.Entity("webapi.Models.UserAsset", b =>
-                {
-                    b.Navigation("CoinPurchaseRequests");
                 });
 #pragma warning restore 612, 618
         }

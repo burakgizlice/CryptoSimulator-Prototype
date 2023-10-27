@@ -36,13 +36,13 @@ namespace webapi.Controllers
         [HttpPost]
 
         [Route("BuyCoin")]
-        public async Task<ActionResult<string>> BuyCoin([FromBody] CoinPurchaseRequest request)
+        public async Task<ActionResult<string>> BuyCoin([FromBody] BuyTranscation request)
         {
             try
             {
                 var user =await _db.Users.FirstOrDefaultAsync(u => u.UserId == request.UserId);
 
-                if (user != null && user.Balance >= request.Amount * request.CurrentPrice) 
+                if (user != null && user.Balance >= request.Amount * request.PricePerCoin) 
                 {
                     var existingUserAsset = _db.userAssets
                        .FirstOrDefault(a => a.UserId == request.UserId && a.CoinCode == request.CoinCode);
@@ -58,24 +58,26 @@ namespace webapi.Controllers
                             UserId = request.UserId,
                             CoinCode = request.CoinCode,
                             Amount = request.Amount,
+                            CoinImageURL = request.CoinImageURL,
                             User = user
                         };
 
                         _db.userAssets.Add(newUserAsset);
                     }
 
-                    user.Balance -= request.Amount * request.CurrentPrice;
+                    user.Balance -= request.Amount * request.PricePerCoin;
 
-                    var purchase = new CoinPurchaseRequest
+                    var purchase = new BuyTranscation
                     {
                         UserId = request.UserId,
                         CoinCode = request.CoinCode,
                         Amount = request.Amount,
-                        CurrentPrice = request.CurrentPrice,
-                        DateTime = request.DateTime,
+                        PricePerCoin = request.PricePerCoin,
+                        TrascationTime = request.TrascationTime,
+                        CoinImageURL = request.CoinImageURL,
                     };
 
-                    _db.coinPurchaseRequests.Add(purchase);
+                    _db.buyTranscations.Add(purchase);
 
                     _db.SaveChanges();
 
@@ -112,7 +114,7 @@ namespace webapi.Controllers
         [HttpPost]
 
         [Route("SellCoin")]
-        public async Task<ActionResult<string>> SellCoin([FromBody] CoinPurchaseRequest request)
+        public async Task<ActionResult<string>> SellCoin([FromBody] SellTranscation request)
         {
             try
             {
@@ -124,21 +126,22 @@ namespace webapi.Controllers
                 }
 
                 //add the sold coins' value to user balance
-                var soldAmount = request.Amount * request.CurrentPrice;
+                var soldAmount = request.Amount * request.PricePerCoin;
                 var user = await _db.Users.FirstOrDefaultAsync(u => u.UserId == request.UserId);
                 user.Balance += soldAmount;
 
                 //record the sell request in hte coinpurchace table for transcation history
 
-                var sellRequestEntry = new CoinPurchaseRequest
+                var sellRequestEntry = new SellTranscation
                 {
                     UserId = request.UserId,
                     CoinCode = request.CoinCode,
                     Amount = request.Amount,
-                    CurrentPrice = request.CurrentPrice,
-                    DateTime = request.DateTime,
+                    PricePerCoin = request.PricePerCoin,
+                    TranscationId = request.TranscationId,
+                    CoinImageURl = request.CoinImageURl,
                 };
-                _db.coinPurchaseRequests.Add(sellRequestEntry);
+                _db.sellTranscations.Add(sellRequestEntry);
 
                 //update userAsset table
                 userAsset.Amount -= request.Amount;
