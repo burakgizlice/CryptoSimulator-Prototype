@@ -73,7 +73,7 @@ namespace webapi.Controllers
                         CoinCode = request.CoinCode,
                         Amount = request.Amount,
                         PricePerCoin = request.PricePerCoin,
-                        TrascationTime = request.TrascationTime,
+                        TrascationTime = DateTime.UtcNow,
                         CoinImageURL = request.CoinImageURL,
                     };
 
@@ -138,7 +138,7 @@ namespace webapi.Controllers
                     CoinCode = request.CoinCode,
                     Amount = request.Amount,
                     PricePerCoin = request.PricePerCoin,
-                    TranscationId = request.TranscationId,
+                    TranscationTime = DateTime.UtcNow,
                     CoinImageURl = request.CoinImageURl,
                 };
                 _db.sellTranscations.Add(sellRequestEntry);
@@ -156,9 +156,9 @@ namespace webapi.Controllers
             {
                 return BadRequest(ex.Message);
             }
-
-
         }
+
+
 
 
     }
