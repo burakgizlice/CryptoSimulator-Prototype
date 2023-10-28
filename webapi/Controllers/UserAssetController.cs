@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using webapi.Data;
 using webapi.Models;
 
@@ -21,7 +22,7 @@ namespace webapi.Controllers
         }
 
         [HttpGet]
-        [Route("{userId}")]
+        [Route("UserAssset/{userId}")]
 
         public async Task<ActionResult<IEnumerable<UserAsset>>> GetUserAsset(int userId)
         {
@@ -156,6 +157,54 @@ namespace webapi.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpGet]
+        [Route("TranscationHistory/{userId}")]
+
+        public IActionResult GetTranscation(int userId)
+        {
+            try
+            {
+                var buyTranscations = _db.buyTranscations.Where(b => b.UserId == userId)
+                    .Select(b => new TranscationResult
+                    {
+                        TransactionId = b.TranscationId,
+                        UserId = b.UserId,
+                        CoinCode = b.CoinCode,
+                        Amount = b.Amount,
+                        PricePerCoin = b.PricePerCoin,
+                        TransactionTime = b.TrascationTime,
+                        CoinImageUrl = b.CoinImageURL,
+                        TransactionType = "Buy"
+
+                    }).ToList();
+
+                var sellTranscations = _db.sellTranscations.Where(s => s.UserId == userId)
+                    .Select(s => new TranscationResult
+                    {
+                        TransactionId = s.TranscationId,
+                        UserId = s.UserId,
+                        CoinCode = s.CoinCode,
+                        Amount = s.Amount,
+                        PricePerCoin = s.PricePerCoin,
+                        TransactionTime = s.TranscationTime,
+                        CoinImageUrl = s.CoinImageURl,
+                        TransactionType = "Sell"
+
+                    }).ToList();
+
+                //Combine buy and sell transcation into a single list
+                var allTranscations = buyTranscations.Concat(sellTranscations).OrderBy(t => t.TransactionTime).ToList();
+
+                return Ok(allTranscations);
+            }
+
+            catch(Exception ex)
+            {
+                return BadRequest(ex);
+            }
+
         }
 
 
