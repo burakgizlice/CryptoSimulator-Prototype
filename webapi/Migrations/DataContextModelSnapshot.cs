@@ -45,9 +45,6 @@ namespace webapi.Migrations
                     b.Property<DateTime>("TrascationTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("TranscationId");
 
                     b.ToTable("buyTranscations");
@@ -76,9 +73,6 @@ namespace webapi.Migrations
                     b.Property<DateTime>("TranscationTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("TranscationId");
 
                     b.ToTable("sellTranscations");
@@ -96,49 +90,34 @@ namespace webapi.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("UserName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users");
+                    b.ToTable("users");
                 });
 
             modelBuilder.Entity("webapi.Models.UserAsset", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int>("UserAssetId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("CoinCode")
-                        .HasColumnType("nvarchar(450)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserAssetId"));
 
                     b.Property<double>("Amount")
                         .HasColumnType("float");
 
+                    b.Property<string>("CoinCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("CoinImageURL")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserAssetId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "CoinCode");
+                    b.HasKey("UserAssetId");
 
                     b.ToTable("userAssets");
-                });
-
-            modelBuilder.Entity("webapi.Models.UserAsset", b =>
-                {
-                    b.HasOne("webapi.Models.User", "User")
-                        .WithMany("UserAssets")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("webapi.Models.User", b =>
-                {
-                    b.Navigation("UserAssets");
                 });
 #pragma warning restore 612, 618
         }

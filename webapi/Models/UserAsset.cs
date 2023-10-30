@@ -11,10 +11,7 @@ namespace webapi.Models
         public string? CoinCode { get; set; }
     
         public double Amount { get; set; }
-        
-        public int UserId { get; set; }
-        [ForeignKey("UserId")]
-        public required virtual User User { get; set; } // Navigation property to the User table        
+               
         public string? CoinImageURL { get; set; }
         
     }

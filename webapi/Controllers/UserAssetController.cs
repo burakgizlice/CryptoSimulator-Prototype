@@ -22,12 +22,11 @@ namespace webapi.Controllers
         }
 
         [HttpGet]
-        [Route("UserAssset/{userId}")]
+        [Route("BringAssets")]
 
-        public async Task<ActionResult<IEnumerable<UserAsset>>> GetUserAsset(int userId)
+        public async Task<ActionResult<IEnumerable<UserAsset>>> GetUserAsset()
         {
             var userAssets = await _db.userAssets
-                .Where(x => x.UserId == userId)
                 .Select(x => new { CoinCode = x.CoinCode, Amount = x.Amount })
                 .ToListAsync();
 
@@ -41,12 +40,12 @@ namespace webapi.Controllers
         {
             try
             {
-                var user =await _db.Users.FirstOrDefaultAsync(u => u.UserId == request.UserId);
+                var user =await _db.users.FirstAsync();
 
-                if (user != null && user.Balance >= request.Amount * request.PricePerCoin) 
+                if ( user.Balance >= request.Amount * request.PricePerCoin) 
                 {
                     var existingUserAsset = _db.userAssets
-                       .FirstOrDefault(a => a.UserId == request.UserId && a.CoinCode == request.CoinCode);
+                       .FirstOrDefault(a => a.CoinCode == request.CoinCode);
 
                     if (existingUserAsset != null)
                     {
@@ -56,11 +55,11 @@ namespace webapi.Controllers
                     {
                         var newUserAsset = new UserAsset
                         {
-                            UserId = request.UserId,
+                            
                             CoinCode = request.CoinCode,
                             Amount = request.Amount,
                             CoinImageURL = request.CoinImageURL,
-                            User = user
+                            
                         };
 
                         _db.userAssets.Add(newUserAsset);
@@ -70,7 +69,7 @@ namespace webapi.Controllers
 
                     var purchase = new BuyTranscation
                     {
-                        UserId = request.UserId,
+                        
                         CoinCode = request.CoinCode,
                         Amount = request.Amount,
                         PricePerCoin = request.PricePerCoin,
@@ -99,11 +98,11 @@ namespace webapi.Controllers
 
         }
         [HttpGet]
-        [Route("Balance")]
+        [Route("GetCurrentBalance")]
 
-        public IActionResult GetCurrentBalance(int id)
+        public IActionResult GetCurrentBalance()
         {
-            var user = _db.Users.Find(id);
+            var user = _db.users.FirstOrDefault();
 
             if (user == null)
             {
@@ -112,6 +111,8 @@ namespace webapi.Controllers
             return Ok(user.Balance);
         }
 
+       
+
         [HttpPost]
 
         [Route("SellCoin")]
@@ -119,7 +120,7 @@ namespace webapi.Controllers
         {
             try
             {
-                var userAsset = await _db.userAssets.FirstOrDefaultAsync(u => u.UserId == request.UserId && u.CoinCode == request.CoinCode);
+                var userAsset = await _db.userAssets.FirstOrDefaultAsync(u => u.CoinCode == request.CoinCode);
 
                 if (userAsset == null || userAsset.Amount < request.Amount)
                 {
@@ -128,14 +129,16 @@ namespace webapi.Controllers
 
                 //add the sold coins' value to user balance
                 var soldAmount = request.Amount * request.PricePerCoin;
-                var user = await _db.Users.FirstOrDefaultAsync(u => u.UserId == request.UserId);
+
+                var user =  _db.users.FirstOrDefault();
                 user.Balance += soldAmount;
+                
 
                 //record the sell request in hte coinpurchace table for transcation history
 
                 var sellRequestEntry = new SellTranscation
                 {
-                    UserId = request.UserId,
+                   
                     CoinCode = request.CoinCode,
                     Amount = request.Amount,
                     PricePerCoin = request.PricePerCoin,
@@ -160,17 +163,16 @@ namespace webapi.Controllers
         }
 
         [HttpGet]
-        [Route("TranscationHistory/{userId}")]
+        [Route("BringTranscationHistory")]
 
-        public IActionResult GetTranscation(int userId)
+        public async Task<IActionResult> GetTranscation()
         {
             try
             {
-                var buyTranscations = _db.buyTranscations.Where(b => b.UserId == userId)
+                var buyTranscations =await _db.buyTranscations
                     .Select(b => new TranscationResult
                     {
                         TransactionId = b.TranscationId,
-                        UserId = b.UserId,
                         CoinCode = b.CoinCode,
                         Amount = b.Amount,
                         PricePerCoin = b.PricePerCoin,
@@ -178,13 +180,12 @@ namespace webapi.Controllers
                         CoinImageUrl = b.CoinImageURL,
                         TransactionType = "Buy"
 
-                    }).ToList();
+                    }).ToListAsync();
 
-                var sellTranscations = _db.sellTranscations.Where(s => s.UserId == userId)
+                var sellTranscations =await _db.sellTranscations
                     .Select(s => new TranscationResult
                     {
                         TransactionId = s.TranscationId,
-                        UserId = s.UserId,
                         CoinCode = s.CoinCode,
                         Amount = s.Amount,
                         PricePerCoin = s.PricePerCoin,
@@ -192,7 +193,7 @@ namespace webapi.Controllers
                         CoinImageUrl = s.CoinImageURl,
                         TransactionType = "Sell"
 
-                    }).ToList();
+                    }).ToListAsync();
 
                 //Combine buy and sell transcation into a single list
                 var allTranscations = buyTranscations.Concat(sellTranscations).OrderBy(t => t.TransactionTime).ToList();
@@ -206,9 +207,6 @@ namespace webapi.Controllers
             }
 
         }
-
-
-
 
     }
 

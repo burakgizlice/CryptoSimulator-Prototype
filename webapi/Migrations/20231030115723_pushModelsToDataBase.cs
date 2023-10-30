@@ -17,7 +17,6 @@ namespace webapi.Migrations
                 {
                     TranscationId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
                     CoinCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Amount = table.Column<double>(type: "float", nullable: false),
                     PricePerCoin = table.Column<double>(type: "float", nullable: false),
@@ -35,7 +34,6 @@ namespace webapi.Migrations
                 {
                     TranscationId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
                     CoinCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Amount = table.Column<double>(type: "float", nullable: false),
                     PricePerCoin = table.Column<double>(type: "float", nullable: false),
@@ -48,38 +46,32 @@ namespace webapi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Balance = table.Column<double>(type: "float", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.UserId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "userAssets",
                 columns: table => new
                 {
-                    CoinCode = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    UserAssetId = table.Column<int>(type: "int", nullable: false),
+                    UserAssetId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CoinCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Amount = table.Column<double>(type: "float", nullable: false),
                     CoinImageURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_userAssets", x => new { x.UserId, x.CoinCode });
-                    table.ForeignKey(
-                        name: "FK_userAssets_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
+                    table.PrimaryKey("PK_userAssets", x => x.UserAssetId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "users",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Balance = table.Column<double>(type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_users", x => x.UserId);
                 });
         }
 
@@ -96,7 +88,7 @@ namespace webapi.Migrations
                 name: "userAssets");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "users");
         }
     }
 }
