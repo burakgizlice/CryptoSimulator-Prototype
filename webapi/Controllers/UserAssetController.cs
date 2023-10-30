@@ -33,6 +33,23 @@ namespace webapi.Controllers
             return Ok(userAssets);
         }
 
+        [HttpGet]
+        [Route("UserAsset/{coincode}")]
+
+        public  ActionResult<IEnumerable<UserAsset>> GetAsset(string coincode)
+        {
+            coincode = coincode.ToLower();
+            var userAsset = _db.userAssets.Where(u => u.CoinCode.ToLower() == coincode);
+
+            if (userAsset.Any())
+            {
+                return Ok(userAsset.Select(u => new {CoinCode = u.CoinCode, Amount = u.Amount}));
+
+            }
+
+            return NotFound();
+        }
+
         [HttpPost]
 
         [Route("BuyCoin")]
