@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Styles.scss";
 import axios from "axios";
 
-const Index = ({ coins = [] }) => {
+const Index = ({ coins = [1, 2] }) => {
 	const [indexList, setIndexList] = useState([]);
 	const [currentAmounts, setCurrentAmounts] = useState({});
 
@@ -44,7 +44,7 @@ const Index = ({ coins = [] }) => {
 				<h3>Mkt Cap</h3>
 			</div>
 			{coins.map((coin, index) => (
-				<>
+				<div key={index}>
 					<div
 						className="row"
 						key={index}
@@ -98,7 +98,7 @@ const Index = ({ coins = [] }) => {
 							<button className="sell">SELL</button>
 						</div>
 					</div>
-				</>
+				</div>
 			))}
 		</div>
 	);
