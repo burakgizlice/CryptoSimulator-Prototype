@@ -22,6 +22,13 @@ namespace webapi.Controllers
         }
 
         [HttpGet]
+        [Route("isReady")]
+        public ActionResult<bool> IsReady()
+        {
+            return Ok(true);
+        }
+
+        [HttpGet]
         [Route("BringAssets")]
 
         public async Task<ActionResult<IEnumerable<UserAsset>>> GetUserAsset()
