@@ -43,14 +43,19 @@ namespace webapi.Controllers
         [HttpGet]
         [Route("UserAsset/{coincode}")]
 
-        public  ActionResult<IEnumerable<UserAsset>> GetAsset(string coincode)
+        public  ActionResult<UserAssetResponse> GetAsset(string coincode)
         {
             coincode = coincode.ToLower();
-            var userAsset = _db.userAssets.Where(u => u.CoinCode.ToLower() == coincode);
+            var userAsset = _db.userAssets.FirstOrDefault(u => u.CoinCode.ToLower() == coincode);
 
-            if (userAsset.Any())
+            if (userAsset != null)
             {
-                return Ok(userAsset.Select(u => new {CoinCode = u.CoinCode, Amount = u.Amount}));
+                var result = new UserAssetResponse
+                {
+                    CoinCode = userAsset.CoinCode,
+                    Amount = userAsset.Amount
+                };
+                return Ok(result);
 
             }
 
@@ -60,7 +65,7 @@ namespace webapi.Controllers
         [HttpPost]
 
         [Route("BuyCoin")]
-        public async Task<ActionResult<string>> BuyCoin([FromBody] BuyTranscation request)
+        public async Task<ActionResult<string>> BuyCoin([FromBody] BuyCoinRequest request)
         {
             try
             {
@@ -140,7 +145,7 @@ namespace webapi.Controllers
         [HttpPost]
 
         [Route("SellCoin")]
-        public async Task<ActionResult<string>> SellCoin([FromBody] SellTranscation request)
+        public async Task<ActionResult<string>> SellCoin([FromBody] SellCoinRequest request)
         {
             try
             {
