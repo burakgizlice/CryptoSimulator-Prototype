@@ -14,5 +14,7 @@ namespace webapi.Models
         public DateTime TrascationTime { get; set; }
 
         public string? CoinImageURL { get; set; }
+        public string? CoinName { get; set; }
+        public string? CoinSymbol { get; set; }
     }
 }

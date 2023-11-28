@@ -12,5 +12,7 @@ namespace webapi.Models
         public double PricePerCoin { get; set;}
         public DateTime TranscationTime { get; set;}
         public string? CoinImageURl { get; set;}
+        public string? CoinName { get; set; }
+        public string? CoinSymbol { get; set; }
     }
 }

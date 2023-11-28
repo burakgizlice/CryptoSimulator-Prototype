@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace webapi.Migrations
 {
     /// <inheritdoc />
-    public partial class pushModelsToDataBase : Migration
+    public partial class pushModelToDatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -53,7 +53,9 @@ namespace webapi.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CoinCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Amount = table.Column<double>(type: "float", nullable: false),
-                    CoinImageURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    CoinImageURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CoinName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CoinSymbol = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -66,7 +68,7 @@ namespace webapi.Migrations
                 {
                     UserId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Balance = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>

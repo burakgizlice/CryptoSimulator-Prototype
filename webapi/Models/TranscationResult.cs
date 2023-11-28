@@ -7,8 +7,10 @@
         public double Amount { get; set; }
         public double PricePerCoin { get; set; }
         public DateTime TransactionTime { get; set; }
-        public string? CoinImageUrl { get; set; }
-
         public string? TransactionType { get; set; }
+        public string? CoinImageUrl { get; set; }
+       
+        public string? CoinName { get; set; }
+        public string? CoinSymbol { get; set; }
     }
 }

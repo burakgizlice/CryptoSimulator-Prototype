@@ -13,7 +13,9 @@ namespace webapi.Models
         public double Amount { get; set; }
                
         public string? CoinImageURL { get; set; }
-        
+        public string? CoinName { get; set; }
+        public string? CoinSymbol { get; set; }
+
     }
    
 }

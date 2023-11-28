@@ -2,3 +2,4 @@ D:\dev_work\CryptoSimulator\reactapp\obj\Debug\reactapp.esproj.CoreCompileInputs
 D:\KJ_Projects\reactapp\obj\Debug\reactapp.esproj.CoreCompileInputs.cache
 D:\dev_work\KJ_Project\reactapp\obj\Debug\reactapp.esproj.CoreCompileInputs.cache
 D:\KJ_Project\CryproSimulator\reactapp\obj\Debug\reactapp.esproj.CoreCompileInputs.cache
+D:\crypto\reactapp\obj\Debug\reactapp.esproj.CoreCompileInputs.cache

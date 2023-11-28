@@ -12,8 +12,8 @@ using webapi.Data;
 namespace webapi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231030115723_pushModelsToDataBase")]
-    partial class pushModelsToDataBase
+    [Migration("20231128104238_pushModelToDatabase")]
+    partial class pushModelToDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -93,7 +93,6 @@ namespace webapi.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("UserName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId");
@@ -116,6 +115,12 @@ namespace webapi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CoinImageURL")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CoinName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CoinSymbol")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserAssetId");

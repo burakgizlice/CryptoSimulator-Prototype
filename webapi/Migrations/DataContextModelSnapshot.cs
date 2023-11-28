@@ -90,7 +90,6 @@ namespace webapi.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("UserName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId");
@@ -113,6 +112,12 @@ namespace webapi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CoinImageURL")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CoinName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CoinSymbol")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserAssetId");

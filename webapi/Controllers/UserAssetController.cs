@@ -34,7 +34,8 @@ namespace webapi.Controllers
         public async Task<ActionResult<IEnumerable<UserAsset>>> GetUserAsset()
         {
             var userAssets = await _db.userAssets
-                .Select(x => new { CoinCode = x.CoinCode, Amount = x.Amount })
+                .Select(x => new { CoinCode = x.CoinCode, Amount = x.Amount, CoinImageURL = x.CoinImageURL, 
+                CoinName = x.CoinName, CoinSymbol = x.CoinSymbol})
                 .ToListAsync();
 
             return Ok(userAssets);
@@ -88,6 +89,8 @@ namespace webapi.Controllers
                             CoinCode = request.CoinCode,
                             Amount = request.Amount,
                             CoinImageURL = request.CoinImageURL,
+                            CoinSymbol = request.CoinSymbol,
+                            CoinName = request.CoinName,
                             
                         };
 
@@ -104,6 +107,8 @@ namespace webapi.Controllers
                         PricePerCoin = request.PricePerCoin,
                         TrascationTime = DateTime.UtcNow,
                         CoinImageURL = request.CoinImageURL,
+                        CoinSymbol = request.CoinSymbol,
+                        CoinName = request.CoinName,
                     };
 
                     _db.buyTranscations.Add(purchase);
@@ -172,7 +177,10 @@ namespace webapi.Controllers
                     Amount = request.Amount,
                     PricePerCoin = request.PricePerCoin,
                     TranscationTime = DateTime.UtcNow,
-                    CoinImageURl = request.CoinImageURl,
+                    CoinImageURl = userAsset.CoinImageURL,
+                    CoinSymbol = userAsset.CoinSymbol,
+                    CoinName = userAsset.CoinName,
+                    
                 };
                 _db.sellTranscations.Add(sellRequestEntry);
 
@@ -207,6 +215,8 @@ namespace webapi.Controllers
                         PricePerCoin = b.PricePerCoin,
                         TransactionTime = b.TrascationTime,
                         CoinImageUrl = b.CoinImageURL,
+                        CoinName = b.CoinName,
+                        CoinSymbol = b.CoinSymbol,
                         TransactionType = "Buy"
 
                     }).ToListAsync();
@@ -220,6 +230,8 @@ namespace webapi.Controllers
                         PricePerCoin = s.PricePerCoin,
                         TransactionTime = s.TranscationTime,
                         CoinImageUrl = s.CoinImageURl,
+                        CoinName = s.CoinName,
+                        CoinSymbol = s.CoinSymbol,
                         TransactionType = "Sell"
 
                     }).ToListAsync();
