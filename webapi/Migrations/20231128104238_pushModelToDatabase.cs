@@ -21,7 +21,9 @@ namespace webapi.Migrations
                     Amount = table.Column<double>(type: "float", nullable: false),
                     PricePerCoin = table.Column<double>(type: "float", nullable: false),
                     TrascationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CoinImageURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    CoinImageURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CoinName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CoinSymbol = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -38,7 +40,9 @@ namespace webapi.Migrations
                     Amount = table.Column<double>(type: "float", nullable: false),
                     PricePerCoin = table.Column<double>(type: "float", nullable: false),
                     TranscationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CoinImageURl = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    CoinImageURl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CoinName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CoinSymbol = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
