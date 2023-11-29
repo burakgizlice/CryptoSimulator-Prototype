@@ -19,7 +19,6 @@ const SideMenu = ({ balance, active, Deactivate }) => {
 			<div className="pages">
 				<h2 onClick={() => nav("/myAccount/assets")}>ASSETS</h2>
 				<h2 onClick={() => nav("/myAccount/transactionHistory")}>TRANSACTION HISTORY</h2>
-				<h2 onClick={() => nav("/myAccount/profitAndLoss")}>PROFIT & LOSS</h2>
 			</div>
 		</div>
 	);

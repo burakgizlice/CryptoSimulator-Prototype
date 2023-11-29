@@ -5,19 +5,10 @@ import SideMenu from "./components/SideMenu.jsx";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const Index = () => {
+const Index = ({ balance }) => {
 	const nav = useNavigate();
 	const [sideMenuAnchor, setSideMenuAnchor] = useState(false);
-	const [balance, setBalance] = useState("Loading...");
-	useEffect(() => {
-		const getBalance = async () => {
-			axios
-				.get("/api/GetCurrentBalance") //
-				.then((res) => setBalance(res.data))
-				.catch((err) => console.log(err));
-		};
-		getBalance();
-	}, []);
+
 	return (
 		<div className="navbar">
 			<SideMenu
