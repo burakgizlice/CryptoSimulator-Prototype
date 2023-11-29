@@ -1,0 +1,17 @@
+.assetPage {
+	.title {
+		color: white;
+		padding-top: 100px;
+		text-align: center;
+	}
+}
+
+.assetLayout {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	row-gap: 30px;
+	align-items: center;
+	justify-items: center;
+	padding: 50px;
+}
