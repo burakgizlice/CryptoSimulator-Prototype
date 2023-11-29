@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import MainPage from "./pages/MainPage/Index.jsx";
-import CurrentAssets from "./pages/MyAccount/CurrentAssets";
-import ProfitLoss from "./pages/MyAccount/ProfitLoss";
-import TransactionHistory from "./pages/MyAccount/TransactionHistory";
+import CurrentAssets from "./pages/MyAccount/CurrentAssets/Index.jsx";
+import TransactionHistory from "./pages/MyAccount/TransactionHistory/Index.jsx";
 import { Route, Routes } from "react-router-dom";
 
 const API_SECOND_LIMIT = 60;
@@ -45,15 +44,11 @@ const App = () => {
 			/>
 			<Route
 				path="/myAccount/assets"
-				element={<CurrentAssets />}
+				element={<CurrentAssets coins={coins} />}
 			/>
 			<Route
 				path="/myAccount/transactionHistory"
 				element={<TransactionHistory />}
-			/>
-			<Route
-				path="/myAccount/profitAndLoss"
-				element={<ProfitLoss />}
 			/>
 		</Routes>
 	);

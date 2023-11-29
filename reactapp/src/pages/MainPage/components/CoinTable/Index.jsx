@@ -1,25 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./Styles.scss";
 import axios from "axios";
+import PopDown from "../PopDown/Index.jsx";
 
-const Index = ({ coins = [1, 2] }) => {
+const Index = ({ coins = [1, 2], updateBalance, balance }) => {
 	const [indexList, setIndexList] = useState([]);
 	const [currentAmounts, setCurrentAmounts] = useState({});
-
-	// useEffect(() => {
-	// 	const bringAssets = async () => {
-	// 		await axios
-	// 			.get("api/Balance?id=1") //
-	// 			.then((res) => {
-	// 				console.log(res);
-	// 			})
-	// 			.catch((err) => {
-	// 				console.log("USERASSEET" + err);
-	// 			});
-	// 	};
-
-	// 	bringAssets();
-	// }, []);
 
 	const handleClick = (index) => {
 		const tmpArray = [...indexList];
@@ -76,28 +62,16 @@ const Index = ({ coins = [1, 2] }) => {
 						{/* Mkt Cap */}
 						<p className="text">${coin?.market_cap?.toLocaleString()}</p>
 					</div>
-					<div className={`popDown ${indexList.includes(index) ? "active" : ""}`}>
-						<div className="current">
-							<h3>IN WALLET</h3>
-							{/* When the BringAssets works add it here */}
-							<h4>0 {`${coin?.symbol?.toUpperCase()}s`}</h4>
-							<h5>(Worth: 0 USD)</h5>
-						</div>
-						<div className="converter">
-							<div className="input">
-								<h3>{coin?.symbol?.toUpperCase()}</h3>
-								<input placeholder="1"></input>{" "}
-							</div>
-							<div className="input">
-								<h3>USD</h3>
-								<input placeholder={coin?.current_price?.toLocaleString()}></input>{" "}
-							</div>
-						</div>
-						<div className="buttons">
-							<button className="buy">BUY</button>
-							<button className="sell">SELL</button>
-						</div>
-					</div>
+					{indexList.includes(index) ? (
+						<PopDown
+							balance={balance}
+							updateBalance={updateBalance}
+							url={coin?.image}
+							coinSymbol={coin?.symbol?.toUpperCase()}
+							currentPrice={coin?.current_price}
+							coinCode={coin?.id}
+						/>
+					) : null}
 				</div>
 			))}
 		</div>
