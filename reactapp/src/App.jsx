@@ -24,8 +24,9 @@ const App = () => {
 	};
 
 	const isReadyFunction = async () => {
+		console.log("checking if ready");
 		await axios
-			.get("api/isReady") //
+			.get("/api/isReady") //
 			.then((res) => setReady(res.data))
 			.catch((err) => console.log(err));
 	};
@@ -43,6 +44,7 @@ const App = () => {
 			console.log("api limit exceeded, retrieving coins from localstorage");
 		}
 
+		isReadyFunction();
 		const intervalId = setInterval(isReadyFunction, 2000);
 		if (isReady) {
 			clearInterval(intervalId);
