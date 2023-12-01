@@ -10,6 +10,7 @@ const API_SECOND_LIMIT = 60;
 
 const App = () => {
 	const [coins, setCoins] = useState([{}, {}]);
+	const [isReady, setReady] = useState(false);
 	//Function to get Coins
 	const makeRequest = async () => {
 		await axios
@@ -19,6 +20,13 @@ const App = () => {
 				localStorage.setItem("coins", JSON.stringify(res.data));
 				localStorage.setItem("lastRequestTime", Date.now());
 			})
+			.catch((err) => console.log(err));
+	};
+
+	const isReadyFunction = async () => {
+		await axios
+			.get("api/isReady") //
+			.then((res) => setReady(res.data))
 			.catch((err) => console.log(err));
 	};
 
@@ -34,24 +42,34 @@ const App = () => {
 			setCoins(JSON.parse(localStorage.getItem("coins")));
 			console.log("api limit exceeded, retrieving coins from localstorage");
 		}
-	}, []);
 
-	return (
-		<Routes>
-			<Route
-				path="/"
-				element={<MainPage coins={coins} />}
-			/>
-			<Route
-				path="/myAccount/assets"
-				element={<CurrentAssets coins={coins} />}
-			/>
-			<Route
-				path="/myAccount/transactionHistory"
-				element={<TransactionHistory />}
-			/>
-		</Routes>
-	);
+		const intervalId = setInterval(isReadyFunction, 2000);
+		if (isReady) {
+			clearInterval(intervalId);
+		}
+		return () => clearInterval(intervalId);
+	}, [isReady]);
+
+	if (isReady) {
+		return (
+			<Routes>
+				<Route
+					path="/"
+					element={<MainPage coins={coins} />}
+				/>
+				<Route
+					path="/myAccount/assets"
+					element={<CurrentAssets coins={coins} />}
+				/>
+				<Route
+					path="/myAccount/transactionHistory"
+					element={<TransactionHistory />}
+				/>
+			</Routes>
+		);
+	} else {
+		return <h1>Loading the server...</h1>;
+	}
 };
 
 export default App;
