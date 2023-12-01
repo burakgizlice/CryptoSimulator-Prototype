@@ -9,7 +9,8 @@ const Index = ({ asset, coins }) => {
 		return (
 			<div className="AssetCard">
 				<img src={asset?.coinImageURL ?? "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400"}></img>
-				<h1>{asset.coinCode}</h1>
+				<h1>{asset.coinName}</h1>
+				<h2>{asset.coinSymbol}</h2>
 				<h3>IN WALLET</h3>
 				<h4>
 					{asset?.amount?.toLocaleString()} {asset?.coinSymbol ?? "BTC"}s

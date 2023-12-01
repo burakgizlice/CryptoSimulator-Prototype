@@ -70,6 +70,7 @@ const Index = ({ coins = [1, 2], updateBalance, balance }) => {
 							coinSymbol={coin?.symbol?.toUpperCase()}
 							currentPrice={coin?.current_price}
 							coinCode={coin?.id}
+							coinName={coin?.name}
 						/>
 					) : null}
 				</div>

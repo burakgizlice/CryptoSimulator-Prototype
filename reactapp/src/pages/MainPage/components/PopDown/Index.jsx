@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Styles.scss";
 import axios from "axios";
 
-const Index = ({ coinSymbol, currentPrice, coinCode, url, updateBalance, balance }) => {
+const Index = ({ coinName, coinSymbol, currentPrice, coinCode, url, updateBalance, balance }) => {
 	// STATES
 	const [usd, setUSD] = useState(currentPrice);
 	const [coin, setCoin] = useState(1);
@@ -35,7 +35,7 @@ const Index = ({ coinSymbol, currentPrice, coinCode, url, updateBalance, balance
 		// ISSUE WITH THE API, IT IS AN ARRAY
 		await axios
 			.get(`/api/UserAsset/${coinCode}`)
-			.then((res) => setInWallet(res?.data[0]?.amount)) //
+			.then((res) => setInWallet(res?.data.amount)) //
 			.catch((err) => console.log("coin not owned"));
 	};
 	useEffect(() => {
@@ -50,6 +50,8 @@ const Index = ({ coinSymbol, currentPrice, coinCode, url, updateBalance, balance
 		}
 		await axios
 			.post("/api/BuyCoin", {
+				coinName: coinName,
+				coinSymbol: coinSymbol,
 				coinCode: coinCode,
 				amount: coin,
 				pricePerCoin: currentPrice,
