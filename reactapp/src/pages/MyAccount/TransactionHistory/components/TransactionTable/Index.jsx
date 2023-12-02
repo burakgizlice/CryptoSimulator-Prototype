@@ -31,7 +31,7 @@ const Index = ({ transactions }) => {
 								src={transaction?.coinImageUrl}
 							/>
 							<h3 className="name">{transaction?.coinName ?? "Bitcoin"}</h3>
-							<p className="text">{transaction?.symbol?.toUpperCase() ?? "BTC"}</p>
+							<p className="text">{transaction?.coinSymbol?.toUpperCase() ?? "BTC"}</p>
 						</div>
 						{/* Transaction Id */}
 						<p className="text">{transaction?.transactionId}</p>
